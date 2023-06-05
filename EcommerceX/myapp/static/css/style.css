@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .owl-carousel .item{
  /* border: 1px solid black; */
  font-size: 24px;
