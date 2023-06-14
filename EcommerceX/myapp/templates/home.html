@@ -1,133 +1,44 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Home{% endblock title %} 
-  
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Home{% endblock title %} 
 {% block main-content %}
 <!-- 1st Product Slider -->
 <div class="my-5">
   <!-- Slider -->
   <div class="owl-carousel" id="slider1">
-    <a href="{% url 'product-detail' %}" class="btn"
-      ><div class="item">
+    {% for m in mobiles %}
+    <a href="{% url 'product-detail' %}" class="btn">
+      <div class="item">
         <img
-          src="{% static 'images/product/1.jpg' %}"
+          src="{{m.product_image.url}}"
           alt=""
-          width="400px"
-          height="440px"
-        /><span class="fw-bold">Product 1</span><br /><span class="fs-5"
-          >Rs. 500</span
-        >
-      </div></a
-    >
-    <div class="item">
-      <img
-        src="{% static 'images/product/2.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 2</span><br /><span class="fs-5"
-        >Rs. 300</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/3.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 3</span><br /><span class="fs-5"
-        >Rs. 100</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/4.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 4</span><br /><span class="fs-5"
-        >Rs. 700</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/5.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 5</span><br /><span class="fs-5"
-        >Rs. 500</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/6.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 6</span><br /><span class="fs-5"
-        >Rs. 400</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/7.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 7</span><br /><span class="fs-5"
-        >Rs. 500</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/8.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 8</span><br /><span class="fs-5"
-        >Rs. 300</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/9.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 9</span><br /><span class="fs-5"
-        >Rs. 600</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/10.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 10</span><br /><span class="fs-5"
-        >Rs. 900</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/11.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 11</span><br /><span class="fs-5"
-        >Rs. 100</span
-      >
-    </div>
-    <div class="item">
-      <img
-        src="{% static 'images/product/12.jpg' %}"
-        alt=""
-        width="400px"
-        height="440px"
-      /><span class="fw-bold">Product 12</span><br /><span class="fs-5"
-        >Rs. 200</span
-      >
-    </div>
+          width="500px"
+          height="300px"
+        /><span class="fw-bold">{{m.title}}</span><br /><span class="fs-5">Rs. {{m.selling_price}}</span>
+      </div>
+    </a>
+    {% endfor %}
   </div>
 </div>
 <!-- End 1st Product Slider -->
+
+<!-- 2nd Product Slider -->
+<div>
+  <!-- Slider -->
+  <div class="owl-carousel" id="slider2">
+    {% for l in laptops %}
+    <a href="{% url 'product-detail' %}" class="btn">
+      <div class="item">
+        <img
+          src="{{l.product_image.url}}"
+          alt=""
+          width="700px"
+          height="200px"
+        /><span class="fw-bold">{{l.title}}</span><br /><span class="fs-5">Rs. {{l.selling_price}}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+<!-- End 2nd Product Slider -->
 {% endblock main-content %}
