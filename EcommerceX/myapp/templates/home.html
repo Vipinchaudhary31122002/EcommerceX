@@ -1,7 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Home{% endblock title %} {% block main-content %}
 <!-- 1st Product Slider -->
-<div class="mt-5">
-  <h2>Mobiles of the day</h2>
+<div class="my-5">
   <!-- Slider 1 -->
   <div class="owl-carousel" id="slider1">
     {% for m in mobiles %}
@@ -23,8 +22,7 @@
 <!-- End 1st Product Slider -->
 
 <!-- 2nd Product Slider -->
-<div class="mx-3">
-  <h2>Laptops of the day</h2>
+<div class="my-3">
   <!-- Slider 2 -->
   <div class="owl-carousel" id="slider2">
     {% for l in laptops %}
@@ -41,6 +39,7 @@
       </div>
     </a>
     {% endfor %}
+  </div>
+  <!-- End 2nd Product Slider -->
+  {% endblock main-content %}
 </div>
-<!-- End 2nd Product Slider -->
-{% endblock main-content %}
