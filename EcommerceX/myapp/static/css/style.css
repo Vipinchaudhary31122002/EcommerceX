@@ -23,3 +23,8 @@
  font-size: 24px;
  font-weight: bold;
 }
+
+/* margin from top */
+.mt-6 {
+    margin-top: 60px !important;
+  }

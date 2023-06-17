@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Home{% endblock title %} {% block main-content %}
 <!-- 1st Product Slider -->
-<div class="my-5">
+<div class="mt-6">
+  <h1 class="text-center">MOBILES OF THE DAY</h1>
   <!-- Slider 1 -->
   <div class="owl-carousel" id="slider1">
     {% for m in mobiles %}
@@ -10,7 +11,7 @@
           src="{{m.product_image.url}}"
           alt=""
           width="500px"
-          height="300px"
+          height="200px"
         /><span class="fw-bold">{{m.title}}</span><br /><span class="fs-5"
           >Rs. {{m.selling_price}}</span
         >
@@ -23,6 +24,7 @@
 
 <!-- 2nd Product Slider -->
 <div class="my-3">
+  <h1 class="text-center">LAPTOPS OF THE DAY</h1>
   <!-- Slider 2 -->
   <div class="owl-carousel" id="slider2">
     {% for l in laptops %}
@@ -31,7 +33,7 @@
         <img
           src="{{l.product_image.url}}"
           alt=""
-          width="800px"
+          width="500px"
           height="200px"
         /><span class="fw-bold">{{l.title}}</span><br /><span class="fs-5"
           >Rs. {{l.selling_price}}</span
