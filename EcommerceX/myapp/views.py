@@ -26,9 +26,10 @@ class CustomerRegistrationView(View):
     def post(self, request):
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
-            messages.success(request, 'Congratulations! Registration Successfull')
+            messages.success(request, 'Congratulations! Registration Successfull. Please login')
             form.save()
         return render(request, 'customerregistration.html', {'form':form})
+    
 
 def add_to_cart(request):
     return render(request, "addtocart.html")
@@ -52,9 +53,6 @@ def orders(request):
 
 def change_password(request):
     return render(request, "changepassword.html")
-
-def login(request):
-    return render(request, "login.html")
 
 
 def checkout(request):
