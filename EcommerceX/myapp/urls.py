@@ -21,14 +21,14 @@ urlpatterns = [
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='changepassword.html', form_class=MyPasswordChangeForm, success_url='/passwordchangedone/'), name='passwordchange'),
     #  url for password change done
     path('passwordchangedone/', views.ProductView.as_view(), name='passwordchangedone'),
-
-
-
-
-
-
     # url of profile page
-    path("profile/", views.profile, name="profile"),
+    path("profile/", views.ProfileView.as_view(), name="profile"),
+
+
+
+
+
+
     path("cart/", views.add_to_cart, name="add-to-cart"),
     path("buy/", views.buy_now, name="buy-now"),    
     path("address/", views.address, name="address"),
