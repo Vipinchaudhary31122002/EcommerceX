@@ -57,3 +57,4 @@ def change_password(request):
 
 def checkout(request):
     return render(request, "checkout.html")
+

@@ -3,7 +3,7 @@ from myapp import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from .forms import CustomerAuthenticationForm
+from .forms import CustomerAuthenticationForm, MyPasswordChangeForm
 
 urlpatterns = [
     # url of home page
@@ -17,6 +17,16 @@ urlpatterns = [
     name="login"),
     #  url for logout
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    # url for password change 
+    path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='changepassword.html', form_class=MyPasswordChangeForm, success_url='/passwordchangedone/'), name='passwordchange'),
+    #  url for password change done
+    path('passwordchangedone/', views.ProductView.as_view(), name='passwordchangedone'),
+
+
+
+
+
+
     # url of profile page
     path("profile/", views.profile, name="profile"),
     path("cart/", views.add_to_cart, name="add-to-cart"),
