@@ -13,7 +13,10 @@ urlpatterns = [
     # url of customerregistration page 
     path("registration/", views.CustomerRegistrationView.as_view(), name="customerregistration"),
     # url of login page
-    path("accounts/login/", auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomerAuthenticationForm), name="login"),
+    path("accounts/login/", auth_views.LoginView.as_view(template_name='login.html', authentication_form=CustomerAuthenticationForm), 
+    name="login"),
+    #  url for logout
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     # url of profile page
     path("profile/", views.profile, name="profile"),
     path("cart/", views.add_to_cart, name="add-to-cart"),
