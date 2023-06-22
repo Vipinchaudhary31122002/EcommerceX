@@ -50,6 +50,10 @@ class ProfileView(View):
             messages.success(request, 'Congratulations! profile updated Successfully')
         return render(request, 'profile.html', {'form':form, 'active':'btn-primary'})
 
+# view for address page
+def address(request):
+    add = Customer.objects.filter(user=request.user)
+    return render(request, "address.html", {'add':add, 'active':'btn-primary'})
 
 def add_to_cart(request):
     return render(request, "addtocart.html")
@@ -58,8 +62,6 @@ def buy_now(request):
     return render(request, "buynow.html")
 
 
-def address(request):
-    return render(request, "address.html")
 
 
 def orders(request):
