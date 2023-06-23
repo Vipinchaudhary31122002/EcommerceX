@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from .models import Customer, Product, Cart, OrderPlaced
 from .forms import CustomerProfileForm, CustomerRegistrationForm
@@ -55,14 +55,24 @@ def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request, "address.html", {'add':add, 'active':'btn-primary'})
 
+# view for add to cart
 def add_to_cart(request):
-    return render(request, "addtocart.html")
+    user=request.user
+    product_id=request.GET.get('prod_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user=user, product=product).save()
+    return redirect('/cart')
+
+# view for showing the cart product
+def show_cart(request):
+    if request.user.is_authenticated:
+        user = request.user
+        cart = Cart.objects.filter(user=user)
+        return render(request, "addtocart.html", {'carts':cart})
+
 
 def buy_now(request):
     return render(request, "buynow.html")
-
-
-
 
 def orders(request):
     return render(request, "orders.html")

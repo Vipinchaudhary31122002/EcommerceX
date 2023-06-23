@@ -23,13 +23,15 @@ urlpatterns = [
     path('passwordchangedone/', views.ProductView.as_view(), name='passwordchangedone'),
     # url of profile page
     path("profile/", views.ProfileView.as_view(), name="profile"),
+    # url of add to cart
+    path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
+    # url of show cart
+    path("cart/", views.show_cart, name="showcart"),
 
 
 
 
 
-
-    path("cart/", views.add_to_cart, name="add-to-cart"),
     path("buy/", views.buy_now, name="buy-now"),    
     path("address/", views.address, name="address"),
     path("orders/", views.orders, name="orders"),
