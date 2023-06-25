@@ -1,8 +1,10 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views import View
 from .models import Customer, Product, Cart, OrderPlaced
 from .forms import CustomerProfileForm, CustomerRegistrationForm
 from django.contrib import messages
+from django.db.models import Q
 
 # view for home page
 class ProductView(View):
@@ -83,6 +85,51 @@ def show_cart(request):
         else:
             return render(request, 'emptycart.html')
 
+# view for plus button 
+def plus_cart(request):
+    if request.method== 'GET':
+        prod_id = request.GET['prod_id']
+        print('prod_id')
+        c = Cart.objects.get(Q(product = prod_id) & Q(user=request.user))
+        c.quantity+=1
+        c.save()
+        amount = 0.0
+        shipping_amount = 100.00
+        cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+        for p in cart_product:
+            tempamount = (p.quantity*p.product.discounted_price)
+            amount+=tempamount
+            totalamount = amount + shipping_amount
+
+        data = {
+            'quantity': c.quantity,
+            'amount':amount,
+            'totalamount': totalamount
+        }
+        return JsonResponse(data)
+
+# view for minus button
+def minus_cart(request):
+    if request.method== 'GET':
+        prod_id = request.GET['prod_id']
+        print('prod_id')
+        c = Cart.objects.get(Q(product = prod_id) & Q(user=request.user))
+        c.quantity-=1
+        c.save()
+        amount = 0.0
+        shipping_amount = 100.00
+        cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+        for p in cart_product:
+            tempamount = (p.quantity*p.product.discounted_price)
+            amount +=tempamount
+            totalamount = amount + shipping_amount
+
+        data = {
+            'quantity': c.quantity,
+            'amount':amount,
+            'totalamount': totalamount
+        }
+        return JsonResponse(data)
 
 def buy_now(request):
     return render(request, "buynow.html")

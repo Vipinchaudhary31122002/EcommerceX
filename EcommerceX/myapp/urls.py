@@ -27,6 +27,14 @@ urlpatterns = [
     path("add-to-cart/", views.add_to_cart, name="add-to-cart"),
     # url of show cart
     path("cart/", views.show_cart, name="showcart"),
+    # plus cart
+    path("pluscart/", views.plus_cart),
+    # minus cart
+    path("minuscart/", views.minus_cart),
+    # remove cart
+    path("cart/", views.show_cart, name="showcart"),
+
+
 
 
 
