@@ -32,17 +32,17 @@ urlpatterns = [
     # minus cart
     path("minuscart/", views.minus_cart),
     # remove cart
-    path("cart/", views.show_cart, name="showcart"),
-
-
+    path("removecart/", views.remove_cart,),
+    # url for address page
+    path("address/", views.address, name="address"),
+    # url for checkout page
+    path("checkout/", views.checkout, name="checkout"),
 
 
 
 
 
     path("buy/", views.buy_now, name="buy-now"),    
-    path("address/", views.address, name="address"),
     path("orders/", views.orders, name="orders"),
     path("changepassword/", views.change_password, name="changepassword"),
-    path("checkout/", views.checkout, name="checkout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

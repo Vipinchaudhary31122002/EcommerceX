@@ -1,38 +1,45 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %}Buy Now{% endblock title %}
 {% block main-content %}
-<div class="container">
+<div class="container mt-6">
  <div class="row mt-5">
   <div class="col-sm-6">
     <h4>Order Summary</h4>
+    <h3>Total Amount <br>Rs. {{ totalamount }}</h3>
     <hr>
-      <div class="card mb-2">
-        <div class="card-body">
-          <h5>Product: Product 1</h5>
-          <p>Quantity: 2</p>
-          <p class="fw-bold">Price: 100.00</p>
-        </div>
+      <div class="card mb-3">
+        
+        {% for product in cartitems %}
+        <div class="card-body d-flex-inline">
+          <h5>Product: {{ product.product.title }}</h5>
+          <p>Quantity: {{ product.quantity }}</p>
+          <p class="fw-bold">Price: {{ product.total_cost }}</p>
+        </div>  
+        {% endfor %}
+          
+        
       </div>
-    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
   </div>
   <div class="col-sm-4 offset-sm-1">
     <h4>Select Shipping Address</h4>
     <hr>
     <form action="">
+      {% for address in add %}
       <div class="card">
         <div class="card-body">
-        <h5>Sonam Kumari</h5>
-        <p>Hirapur Dhanbad Jharkahnd</p>
+        <h5>{{ address.name }}</h5>
+        <p>{{ address.locality }}, {{ address.city }}, {{ address.state }} - {{ address.zipcode }}</p>
         </div>
       </div>
-        <div class="form-check mt-2 mb-5">
+        <div class="form-check mt-2 mb-3">
           <input class="form-check-input" type="radio" value="">
           <label class="form-check-label fw-bold" for="">
-            Address: 1 </label>
-        </div>
+            Address: {{ forloop.counter }} </label>
+        </div>  
+      {% endfor %}
         <div class="text-end">
-          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+          <button type="submit" class="btn btn-outline-warning mt-3 px-5 fw-bold">Continue</button>
         </div>
       </form>
     </div>
