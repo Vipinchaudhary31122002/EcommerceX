@@ -5,6 +5,8 @@ from .models import Customer, Product, Cart, OrderPlaced
 from .forms import CustomerProfileForm, CustomerRegistrationForm
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # view for home page
 class ProductView(View):
@@ -33,6 +35,7 @@ class CustomerRegistrationView(View):
         return render(request, 'customerregistration.html', {'form':form})
     
 # view for profile page
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
         form = CustomerProfileForm()
@@ -53,11 +56,13 @@ class ProfileView(View):
         return render(request, 'profile.html', {'form':form, 'active':'btn-primary'})
 
 # view for address page
+@login_required
 def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request, "address.html", {'add':add, 'active':'btn-primary'})
 
 # view for add to cart
+@login_required
 def add_to_cart(request):
     user=request.user
     product_id=request.GET.get('prod_id')
@@ -66,6 +71,7 @@ def add_to_cart(request):
     return redirect('/cart')
 
 # view for showing the cart product
+@login_required
 def show_cart(request):
     if request.user.is_authenticated:
         user = request.user
@@ -85,7 +91,8 @@ def show_cart(request):
         else:
             return render(request, 'emptycart.html')
 
-# view for plus button 
+# view for plus button
+@login_required 
 def plus_cart(request):
     if request.method== 'GET':
         prod_id = request.GET['prod_id']
@@ -108,6 +115,7 @@ def plus_cart(request):
         return JsonResponse(data)
 
 # view for minus button
+@login_required
 def minus_cart(request):
     if request.method== 'GET':
         prod_id = request.GET['prod_id']
@@ -128,6 +136,7 @@ def minus_cart(request):
         }
         return JsonResponse(data)
     
+@login_required
 def remove_cart(request):
     if request.method== 'GET':
         prod_id = request.GET['prod_id']
@@ -148,6 +157,7 @@ def remove_cart(request):
         return JsonResponse(data)
 
 # view for checkout page
+@login_required
 def checkout(request):
     user = request.user
     add = Customer.objects.filter(user=user)
@@ -164,17 +174,26 @@ def checkout(request):
         totalamount = amount + shipping_amount
     return render(request, "checkout.html", {'add':add, 'totalamount':totalamount, 'cartitems':cart_items, 'totalamount':totalamount})
 
+# view for payment done
+@login_required
+def payment_done(request):
+    user = request.user
+    custid = request.GET.get('custid')
+    customer = Customer.objects.get(id=custid)
+    cart = Cart.objects.filter(user=user)
+    for c in cart:
+        OrderPlaced(user=user, customer=customer, product=c.product, quantity=c.quantity).save()
+        c.delete()
+    return redirect("orders")
 
-
-
-
+# view for orders
+def orders(request):
+    op = OrderPlaced.objects.filter(user=request.user)
+    return render(request, "orders.html", {'order':op})
 
 
 def buy_now(request):
     return render(request, "buynow.html")
-
-def orders(request):
-    return render(request, "orders.html")
 
 def change_password(request):
     return render(request, "changepassword.html")

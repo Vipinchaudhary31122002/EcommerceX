@@ -17,14 +17,12 @@
           <p class="fw-bold">Price: {{ product.total_cost }}</p>
         </div>  
         {% endfor %}
-          
-        
       </div>
   </div>
   <div class="col-sm-4 offset-sm-1">
     <h4>Select Shipping Address</h4>
     <hr>
-    <form action="">
+    <form action="/paymentdone">
       {% for address in add %}
       <div class="card">
         <div class="card-body">
@@ -33,7 +31,7 @@
         </div>
       </div>
         <div class="form-check mt-2 mb-3">
-          <input class="form-check-input" type="radio" value="">
+          <input class="form-check-input" type="radio" value="{{ address.id }}" name="custid" id="custadd{{forloop.counter}}">
           <label class="form-check-label fw-bold" for="">
             Address: {{ forloop.counter }} </label>
         </div>  
